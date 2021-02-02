@@ -1,0 +1,22 @@
+﻿<style>
+	.funny{
+		font-size:100px;
+		background-color:white;
+		color:blue;
+	}
+	.notfunny{
+		font-size:20px;
+		color: blue;
+		z-index:1;
+	}
+	#haha{
+		font-size:150px;
+		background-color:white;
+		color:black;
+	}
+	#hehe{
+		font-size:70px;
+		background-color:purple;
+		color:yellow;
+	}
+</style>

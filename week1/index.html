@@ -1,0 +1,74 @@
+﻿<html>
+	<head>
+		<title> SinHoliday </title>
+		<script type="text/javascript">
+			let clicks=1;
+			window.addEventListener('load',init);//当网页加载的时候才运行，否则body没有加载出来没有办法监听click
+			function init(){
+				let thebody=document.body;
+				
+				var x = document.getElementsByClassName("birds");
+				var i;
+				for (i = 0; i < x.length; i++) {
+				  x[i].addEventListener("mouseover",callMouseOver);
+				  x[i].addEventListener("mouseout",callMouseOut);
+				  console.log("jaj");
+				}				
+			}
+			function callMouseOver(){
+				var x = document.getElementsByClassName("birds");
+				for (i = 0; i < x.length; i++) {
+				var m=clicks%11*9;
+				var n=(clicks%11+7*i)%11*9;
+				var colorName="#ff"+m.toString()+(100-n).toString();
+				console.log(colorName);
+				  x[i].style.color=colorName;
+				  x[i].style.fontSize=clicks+20+"px";
+				}	
+				clicks++;
+
+			}
+			function callMouseOut(){
+				var x = document.getElementsByClassName("birds");
+
+				for (i = 0; i < x.length; i++) {
+				  x[i].style.color="blue";
+				}	
+				  
+			}
+
+		</script>
+		<link rel="stylesheet" href="fun.css" />
+	</head>
+	<body style="background-color:#99ffbb; ">
+		<!--comment-->
+		<div style="position: absolute;top: 0%;left: 440px;">
+		<div id="haha">
+			Singapore Travel
+		</div>
+		<div class="notfunny" style="z-index:-1;">
+			"It was a huge devilfish that caught me and kept me here," said the king's daughter. 
+			"Hide before he returns. But remember, for three hours a day this octopus turns into <span class="birds">a red carp</span>. 
+			It's easy to catch him then, but you must kill him at once or he'll turn into <span class="birds">a red-billed gull </span>and fly away."
+		</div>
+		<div class="notfunny">
+			The sun was setting when the girl suddenly heard a noise. She looked up and saw  <span class="birds">six swans</span> flying in through the window. They landed on the floor and blew at each other, blowing off all their feathers.
+		</div>
+		<div class="notfunny">
+			Every time she came,  <span class="birds">a little white bird </span> perched on a branch. If Cinderella wished for something,  <span class="birds">the bird </span>would throw it down from the tree.			
+		</div>
+		<div class="notfunny">
+			In addition, the house has a small backyard with some fat  <span class="birds">chickens and ducks</span>. There is even an orchard with vegetable and fruit trees
+		</div>
+		<div class="notfunny">
+			“No, I don't see any  <span class="birds">white pigeons</span>." "But I will give you this egg. If meet any difficulty, oneself can not solve the time, break it. It will help you."		
+		</div>
+		<div class="notfunny">
+			When the whole thing was over, no <span class="birds"> bird was happier than the lark</span>, for he had no need of being ordered by the King of the Fence.		
+		</div>
+		</div>
+		<iframe style="z-index:3; position: absolute;top: 0%;left: 0;" width="420" height="805" src="https://www.youtube.com/embed/Q3SoXW5U_n4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>		
+
+		
+	</body>
+</html>
