@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>hello</title>
+
+    
+</head>
+<body>
+
+    <h1> Travel Anywhere</h1>
+    
+    <form method="POST" action="/formdata">
+        <label for="destination">Destination:</label>
+        <input list="destinations" name="destination" id="destination">
+        <datalist id="destinations">
+            <option value="Shanghai"></option>
+            <option value="New York"></option>
+            <option value="Changzhou"></option>
+        </datalist>
+
+        </Br></Br>
+
+        <label for="currentlocation">Current Location:</label>
+        <input list="currentlocations" name="currentlocation" id="currentlocation">
+        <datalist id="currentlocations">
+            <option value="Shanghai"></option>
+            <option value="New York"></option>
+            <option value="Changzhou"></option>
+        </datalist>
+
+        <label for="distance">Distance</label>
+        <input type="number" id="distance" name="distance"><br><br>
+        </Br></Br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+</html>
