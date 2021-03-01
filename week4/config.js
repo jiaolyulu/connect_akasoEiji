@@ -1,0 +1,3 @@
+var config={
+    SECRET_API_KEY: 'AIzaSyB7JT3LEvO3r8DjoMe4D6komSKGXHTpTIM',
+}
