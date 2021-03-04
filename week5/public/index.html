@@ -54,6 +54,7 @@
 
 
         function initMap() {
+            console.log("start");
         map = new google.maps.Map(document.getElementById("map"), {
             center: { lat: 40.712776, lng: -74.005974 },
             zoom: 6,
@@ -238,10 +239,18 @@
         
 
     </script>
+    
     <script type='text/javascript' src='config.js'></script>
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7JT3LEvO3r8DjoMe4D6komSKGXHTpTIM&language=en&callback=initMap">
+    <script id="mapping"></script>
+    <script >
+        var my_script = document.getElementById("mapping");
+        var apiKey=config.SECRET_API_KEY;
+        my_script.src="https://maps.googleapis.com/maps/api/js?key="+apiKey+"&language=en&callback=initMap";
+        document.body.appendChild(my_script);
     </script>
+
+    <!-- <script id="mapping1"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7JT3LEvO3r8DjoMe4D6komSKGXHTpTIM&language=en&callback=initMap"></script> -->
     
     
 </body>
