@@ -5,7 +5,13 @@ var bodyParser = require("body-parser");
 var Datastore = require('nedb');
 const { timeStamp } = require('console');
 var db = new Datastore({ filename: 'database.json', autoload: true });
+var https = require('https');
+var fs = require('fs');
 
+var credentials = {
+    key: fs.readFileSync('https/star_itp_io.key'),
+    cert: fs.readFileSync('https/star_itp_io.pem')
+  };
 
 var urlencodedBodyParser = bodyParser.urlencoded({ extended: true });
 app.use(urlencodedBodyParser);
@@ -56,6 +62,8 @@ app.get('/ticket', function (req, res) {
     })
     
 });
+var httpsServer = https.createServer(credentials, app);
+
 app.listen(130, function () {
     console.log('This website is in Port 130');
 });
