@@ -9,8 +9,8 @@ var https = require('https');
 var fs = require('fs');
 
 var credentials = {
-    key: fs.readFileSync('https/star_itp_io.key'),
-    cert: fs.readFileSync('https/star_itp_io.pem')
+    key: fs.readFileSync('star_itp_io.key'),
+    cert: fs.readFileSync('star_itp_io.pem')
   };
 
 var urlencodedBodyParser = bodyParser.urlencoded({ extended: true });
