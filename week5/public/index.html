@@ -27,6 +27,8 @@
     
   
     <textarea style="width:100%; height: 90px;" id="message" name="message">I really miss my parents</textarea>
+    <label for="email">Enter your email:</label>
+    <input type="email" id="email" name="email">
     <input type="hidden" id="locLat" name="locLat" value='0'>
     <input type="hidden" id="locLng" name="locLng" value='0'>
     <input type="hidden" id="desLat" name="desLat" value='0'>
@@ -57,7 +59,7 @@
             console.log("start");
         map = new google.maps.Map(document.getElementById("map"), {
             center: { lat: 40.712776, lng: -74.005974 },
-            zoom: 6,
+            zoom: 3,
             mapTypeId: 'satellite'
         });
         const markerDes = new google.maps.Marker({

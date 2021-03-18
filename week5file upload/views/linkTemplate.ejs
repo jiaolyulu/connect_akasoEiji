@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<title> <%= data._id %></title>
+	</head>
+	<body>
+		<h3>Here is the ticket!</h3>
+		
+        <div><%= data.distance %></div>
+		<pre>
+			<%= JSON.stringify(data.photo) %>
+		</pre>
+		<image src="uploads/<%= data.photo.filename %>"></image>
+	</body>
+</html>

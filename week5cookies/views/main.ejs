@@ -1,0 +1,14 @@
+<html>
+	<body>
+		
+		Welcome! <%= username %> you last logged in <span id="timeInterval"></span> Seconds.
+		<script>
+			var timeElapsed = (Date.now()-<%= lastlogin %>)/1000;
+			console.log("timeElapsed",timeElapsed);
+			var textTime=document.getElementById("timeInterval");
+			textTime.textContent=timeElapsed;
+		</script>
+		<br />
+		<a href="/logout">Logout</a>
+	</body>
+</html>

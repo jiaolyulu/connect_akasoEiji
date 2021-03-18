@@ -1,0 +1,66 @@
+{
+    "changzhou": {
+        "animal":"chaochao",
+        "weight": 1
+    },
+    "China": {
+        "animal":"panda",
+        "weight":2
+    },
+    "Greenland":{
+        "animal":"polarbear",
+        "weight":2
+    },
+    "Antarctica":{
+        "animal":"penguine",
+        "weight":2
+    },
+    "Texas":{
+        "animal":"dinosaur",
+        "weight":2
+    },
+    "Montana":{
+        "animal":"dinosaur",
+        "weight":2
+    },
+    "Liaoning":{
+        "animal":"dinosaur",
+        "weight":2
+    },
+    "Argentina":{
+        "animal":"dinosaur",
+        "weight":2
+    },
+    "India":{
+        "animal":"monkey",
+        "weight":2
+    },
+    "Pakistan":{
+        "animal":"markhor",
+        "weight":2
+    },
+    "Afghanistan":{
+        "animal":"markhor",
+        "weight":2
+    },
+    "allsea":{
+        "animal":"whale",
+        "weight":2
+    },
+    "sea to land":{
+        "animal":"markhor",
+        "weight":2
+    },
+    "land to sea":{
+        "animal":"tortoise",
+        "weight":2
+    },
+    "new york":{
+        "animal":"pegion",
+        "weight":1
+    },
+    "USA":{
+        "animal":"eagle",
+        "weight":1
+    }
+}

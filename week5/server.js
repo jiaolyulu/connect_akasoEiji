@@ -2,11 +2,37 @@
 var express = require('express');
 var app = express();
 var bodyParser = require("body-parser");
+var jsonBodyParser = bodyParser.json({limit: "1000kb"});
+app.use(jsonBodyParser);
 var Datastore = require('nedb');
+const Jimp = require("jimp");
 const { timeStamp } = require('console');
 var db = new Datastore({ filename: 'database.json', autoload: true });
 var https = require('https');
 var fs = require('fs');
+var emailjs = require('./node_modules/emailjs');
+var multer  = require('multer')
+var upload = multer({ dest: 'public/uploads/' })
+
+var client = emailjs.server.connect({
+	user: 'jiaolvlu@gmail.com',
+	password: 'uacfukyzolzbfasj',
+	host: 'smtp.gmail.com',
+	ssl: true,
+});
+
+// send the message and get a callback with an error or details of the message that was sent
+// client.send(
+// 	{
+// 		text: 'i hope this works',
+// 		from: 'you <jiaolvlu@gmail.com>',
+// 		to: 'someone <786930223@qq.com>',
+// 		subject: 'testing emailjs',
+// 	},
+// 	(err, message) => {
+// 		console.log(err || message);
+// 	}
+// );
 
 var credentials = {
     key: fs.readFileSync('star_itp_io.key'),
@@ -29,9 +55,6 @@ app.get('/', function (req, res) {
 
 
 app.get('/data', function (req, res) {
-    console.log(req.body);
-    
-
     var dataToSave = {
         locLat: req.query.locLat,
         locLng: req.query.locLng,
@@ -40,6 +63,7 @@ app.get('/data', function (req, res) {
         locName: req.query.locName,
         desName: req.query.desName,
         message: req.query.message,
+        email: req.query.email,
         timeStamp: Date.now()
     }
     db.insert(dataToSave, function(err, newDoc){
@@ -49,11 +73,22 @@ app.get('/data', function (req, res) {
         })
         
     });
-    
+});
 
+app.post('/getPicture', function (req, res) {
+
+    var data = req.body.picture;
+    //console.log(data);
+    var searchFor = "data:image/png;base64,";
+    var strippedImage = data.slice(data.indexOf(searchFor) + searchFor.length);
+    var binaryImage = new Buffer(strippedImage, 'base64');
+    fs.writeFileSync(__dirname + '/public/images/' + req.body.name+ '.jpg', binaryImage);
+    var response={response: "Thanks"};
+    res.send(response);
     
     
 });
+
 app.get('/ticket', function (req, res) {
     db.find({}).sort({timeStamp:1}).exec(function(err,docs){
         console.log(docs);
@@ -62,9 +97,12 @@ app.get('/ticket', function (req, res) {
     })
     
 });
+
+
 var httpsServer = https.createServer(credentials, app);
 
-app.listen(140, function () {
-    console.log('This website is in Port 140');
-});
+httpsServer.listen(443);
+// app.listen(443, function () {
+//     console.log('This website is in Port 443');
+// });
 
