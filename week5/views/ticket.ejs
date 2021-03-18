@@ -94,14 +94,29 @@
                 console.log(nameNow);
                 img[i] = loadImage(nameNow);
             }
+            let animalNameString="";
             for (let i=0;i<n;i++){
+                
                 byInt[i]=int(random(0,animalName.length));
                 byAnimal[i]=animalName[byInt[i]];
+                if (i<n-2){
+                    animalNameString+=byAnimal[i]+", ";
+                }
+                if (i==n-2){
+                    animalNameString+=byAnimal[i]+" and ";
+                }
+                if (i==n-1){
+                    animalNameString+=byAnimal[i];
+                }
+                
             }
             console.log(byInt);
             console.log(byAnimal);
+            document.getElementById("animalContent").textContent=animalNameString;
         }
-
+        let colorR=[];
+        let colorG=[];
+        let colorB=[];
         function setup(){
             canvas = createCanvas(w, h*n);
             canvas.parent("sketch-holder");
@@ -112,7 +127,14 @@
             for (let i=1;i<n;i++){
                 randomX[i]=random(0,1);
                 randomY[i]=random(0,1);
+                
             }
+            for (let i=0;i<n;i++){
+                colorR[i]=random(150,255);
+                colorG[i]=random(150,255);
+                colorB[i]=random(150,255);
+            }
+            console.log(colorR);
             randomX=sort(randomX);
             randomY=sort(randomY);
             reverse(randomX);
@@ -139,7 +161,7 @@
 
             drawMap();
         }
-        
+        let markerDes=[];
         let mymap;// the map object
         function drawMap() {
             console.log("start");
@@ -149,7 +171,7 @@
            
             });
             for (let i=0;i<n;i++){
-                let distancetoNextPosition=max(1,int(Math.abs(way[i].lat-way[i+1].lat)+Math.abs(way[i+1].lng-way[i].lng)))/10;
+                let distancetoNextPosition=max(2,int(Math.abs(way[i].lat-way[i+1].lat)+Math.abs(way[i+1].lng-way[i].lng))/10);
                 for (let j=1;j<distancetoNextPosition;j++){
                     let currentPositionLat=j/distancetoNextPosition*way[i+1].lat+(1-j/distancetoNextPosition)*way[i].lat;
                     let currentPositionLng=j/distancetoNextPosition*way[i+1].lng+(1-j/distancetoNextPosition)*way[i].lng;
@@ -163,7 +185,7 @@
             }
             for (let i=0;i<n+1;i++){
             
-                    const markerDes = new google.maps.Marker({
+                    markerDes[i] = new google.maps.Marker({
                     position: { lat: way[i].lat, lng: way[i].lng },
                     map: mymap,
                     
@@ -187,7 +209,9 @@
                         if (status === "OK") {
                             if (results[0]) {
                                 console.log(results[0]);
-                                
+                                const infowindowDes = new google.maps.InfoWindow();
+                                infowindowDes.setContent("Stop"+(i+1).toString()+" : "+results[0].formatted_address);
+                                infowindowDes.open(mymap, markerDes[i]);
                                 locations[i]=getName(results[0]);
                             }
                             else{
@@ -204,10 +228,11 @@
                     })
                     if (wrong){await timer(2000);}
                     
-                    await timer(1000); // then the created Promise can be awaited
+                    await timer(2000); // then the created Promise can be awaited
                 }
                 console.log(locations);
                 finished=true;
+                
             }
             load();
             
@@ -237,8 +262,8 @@
         }
         
         function draw() {
-            if (finished){
-                if (drawn){
+            if (true){
+                if (finished){
                     
                     noLoop();
                     //console.log(nameString);
@@ -262,9 +287,9 @@
                 for (let j=0;j<n;j++){
                     strokeWeight(3);
                     stroke(0);
-                    fill(random(150,255),random(150,255),random(150,255));
+                    fill(colorR[j],colorG[j],colorB[j]);
                     rect(0,j*h,w,h-20);
-                    image(img[byInt[j]],0,j*h);
+                    image(img[byInt[j]],w/3,j*h);
                     fill(0);
                     noStroke();
                     textAlign(CENTER,CENTER);
@@ -289,7 +314,7 @@
                     
                 }
                
-                drawn=true;
+                
                 
             }
             
