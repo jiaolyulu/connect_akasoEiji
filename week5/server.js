@@ -11,14 +11,17 @@ var db = new Datastore({ filename: 'database.json', autoload: true });
 var https = require('https');
 var fs = require('fs');
 var emailjs = require('./node_modules/emailjs');
-var multer  = require('multer')
+var multer  = require('multer');
+const { Message } = require('emailjs/smtp/message');
 var upload = multer({ dest: 'public/uploads/' })
 
 var client = emailjs.server.connect({
 	user: 'jiaolvlu@gmail.com',
-	password: 'uacfukyzolzbfasj',
+	password: fs.readFileSync('gmail.key'),
 	host: 'smtp.gmail.com',
-	ssl: true,
+	tls: {
+		ciphers: 'SSLv3',
+	},
 });
 
 // send the message and get a callback with an error or details of the message that was sent
@@ -74,6 +77,23 @@ app.get('/data', function (req, res) {
         
     });
 });
+app.get('/sendEmail',function(req,res){
+    console.log(req.query);
+    const message = new Message({
+		text: "Your trip ticket is ready",
+		from: 'you <jiaolvlu@gmail.com>',
+		to: 'someone <'+req.query.emailAddress+'>',
+		subject: "Find your tickets in the attatchment",
+        attachment: [
+            { path: 'public/images/'+req.query.nameString+'.jpg', type: 'image/jpg', name: 'mypicture.jpg' },
+
+        ],
+	});
+	
+    client.send(message, (err, message) => {
+        console.log(err || message);
+    });
+})
 
 app.post('/getPicture', function (req, res) {
 
@@ -95,6 +115,11 @@ app.get('/ticket', function (req, res) {
         var dataWrapper= {data:docs};
         res.render("ticket.ejs",dataWrapper);
     })
+    
+});
+app.get('/start', function (req, res) {
+    console.log("start!!!");
+    res.render("start.html");
     
 });
 
