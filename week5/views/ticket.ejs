@@ -319,7 +319,7 @@
                     var Pic =canvas.elt.toDataURL();
                     //console.log(Pic);
                     httpPost(
-                        "https://localhost.itp.io/getPicture",
+                        "/getPicture",
                         'json',
                         {"picture": Pic, "name":nameString},
                         function(result) {
