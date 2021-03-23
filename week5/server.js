@@ -2,7 +2,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require("body-parser");
-var jsonBodyParser = bodyParser.json({limit: "1000kb"});
+var jsonBodyParser = bodyParser.json({limit: "2000kb"});
 app.use(jsonBodyParser);
 var Datastore = require('nedb');
 const Jimp = require("jimp");

@@ -96,11 +96,24 @@
                 console.log(nameNow);
                 img[i] = loadImage(nameNow);
             }
-            let animalNameString="";
+            console.log(byInt);
+            console.log(byAnimal);
             for (let i=0;i<n;i++){
                 
                 byInt[i]=int(random(0,animalName.length));
                 byAnimal[i]=animalName[byInt[i]];
+                
+                
+            }
+            refreshNameString();
+        }
+        let colorR=[];
+        let colorG=[];
+        let colorB=[];
+        
+        function refreshNameString(){
+            let animalNameString="";
+            for (let i=0;i<n;i++){
                 if (i<n-2){
                     animalNameString+=byAnimal[i]+", ";
                 }
@@ -112,13 +125,9 @@
                 }
                 
             }
-            console.log(byInt);
-            console.log(byAnimal);
+            
             document.getElementById("animalContent").textContent=animalNameString;
         }
-        let colorR=[];
-        let colorG=[];
-        let colorB=[];
         function setup(){
             canvas = createCanvas(w, h*n);
             canvas.parent("sketch-holder");
@@ -225,22 +234,29 @@
                                 locationOrigin[i]=results[0].formatted_address;
                                 infowindowDes.open(mymap, markerDes[i]);
                                 locations[i]=getName(results[0]);
-                                
+                                wrong=false;
           
                             }
                             else{
                                 console.log("no result");
-                                i--;
+                                
                                 let wrong=true;
                             }
                         }
                         else{
                             console.log(status);
+                            if (status=="OVER_QUERY_LIMIT"){
+                                i--;
+                                wrong=true;
+                            }
+                            else{
+                                wrong=false;
+                            }
                             
-                            let wrong=true;
                         }
-                        if (i>0){
-                            let animalChoose=byAnimal[i-1];
+                        let animalChoose=byAnimal[i-1];
+                        if (i>0 &&wrong==false){
+                            
                             let nowWeight=4;
                             for (let k=0;k<jsonData.places.length;k++){
                                 
@@ -250,9 +266,12 @@
                                     nowWeight=jsonData.places[k].weight;
                                     console.log(jsonData.places[k].name+" is included");
                                     console.log("index is :"+animalName.indexOf(animalChoose.toString()))
-                                    if (animalName.indexOf(animalChoose.toString())){
+                                    if (animalName.indexOf(animalChoose.toString())!="undefined"){
                                         byAnimal[i-1]=animalChoose;
+                                        
                                         byInt[i-1]=animalName.indexOf(animalChoose);
+                                        console.log(i-1);
+                                        console.log(byAnimal,byInt);
                                     }
                                     else{
                                         console.log(animalChoose+" can not be found");
@@ -260,6 +279,8 @@
                                     
                                 }
                             }
+                            refreshNameString();
+                            
                             let distancetoNextPosition=max(3,int(Math.abs(way[i-1].lat-way[i].lat)+Math.abs(way[i].lng-way[i-1].lng))/10);
                             for (let j=1;j<distancetoNextPosition;j++){
                                 let currentPositionLat=j/distancetoNextPosition*way[i].lat+(1-j/distancetoNextPosition)*way[i-1].lat;
@@ -271,10 +292,10 @@
                                 });
                             }
                         }
-                        
+                        console.log(i,wrong,animalChoose,byAnimal[i-1],byAnimal);
                     })
                     
-                    
+                    console.log("______________")
                     await timer(500); // then the created Promise can be awaited
                 }
                 console.log(locations);
